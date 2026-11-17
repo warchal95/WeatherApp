@@ -1,0 +1,17 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "CFBundleDisplayName": {
+      "comment": "App name shown on the Home Screen",
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pogoda"
+          }
+        }
+      }
+    }
+  }
+}
