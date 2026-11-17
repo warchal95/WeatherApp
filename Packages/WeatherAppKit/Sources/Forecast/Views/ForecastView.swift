@@ -103,26 +103,51 @@ private struct CurrentConditionsDetails: View {
     let current: CurrentConditions
 
     var body: some View {
-        LabeledContent {
-            Text(current.cloudCoverPercent.formattedPercent)
-        } label: {
-            Label(String(localized: "Cloud cover", bundle: .module), systemImage: "cloud")
+        MetricRow(
+            title: String(localized: "Cloud cover", bundle: .module),
+            systemImage: "cloud",
+            value: current.cloudCoverPercent.formattedPercent
+        )
+        MetricRow(
+            title: String(localized: "Chance of precipitation", bundle: .module),
+            systemImage: "umbrella",
+            value: current.precipitationProbabilityPercent.formattedPercent
+        )
+    }
+}
+
+private struct MetricRow: View {
+    let title: String
+    let systemImage: String
+    let value: String
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+
+    var body: some View {
+        let layout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 4))
+            : AnyLayout(HStackLayout())
+        layout {
+            if dynamicTypeSize.isAccessibilitySize {
+                Text(title)
+            } else {
+                Label(title, systemImage: systemImage)
+                Spacer()
+            }
+            Text(value)
+                .foregroundStyle(.secondary)
         }
-        LabeledContent {
-            Text(current.precipitationProbabilityPercent.formattedPercent)
-        } label: {
-            Label(String(localized: "Chance of precipitation", bundle: .module), systemImage: "umbrella")
-        }
+        .accessibilityElement(children: .combine)
     }
 }
 
 private struct HourlyForecastStrip: View {
     let hourly: [HourlyForecast]
     let timeZone: TimeZone
+    @ScaledMetric(relativeTo: .footnote) private var spacing = 8
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 4) {
+            LazyHStack(spacing: spacing) {
                 ForEach(Array(hourly.enumerated()), id: \.element.id) { index, hour in
                     HourlyForecastCell(hour: hour, isNow: index == 0, timeZone: timeZone)
                 }
@@ -137,6 +162,8 @@ private struct HourlyForecastCell: View {
     let hour: HourlyForecast
     let isNow: Bool
     let timeZone: TimeZone
+    @ScaledMetric(relativeTo: .title2) private var symbolHeight = 32
+    @ScaledMetric(relativeTo: .footnote) private var minWidth = 56
 
     var body: some View {
         VStack(spacing: 8) {
@@ -146,7 +173,7 @@ private struct HourlyForecastCell: View {
             Image(systemName: hour.condition.symbolName(isDaytime: hour.isDaytime))
                 .symbolRenderingMode(.multicolor)
                 .font(.title2)
-                .frame(height: 32)
+                .frame(height: symbolHeight)
                 .accessibilityLabel(hour.condition.localizedDescription)
             Text(hour.temperature.formattedTemperature)
                 .font(.body.weight(.medium))
@@ -155,7 +182,7 @@ private struct HourlyForecastCell: View {
                 .font(.caption2)
                 .foregroundStyle(.blue)
         }
-        .frame(minWidth: 56)
+        .frame(minWidth: minWidth)
         .padding(.vertical, 4)
         .accessibilityElement(children: .combine)
     }
@@ -165,26 +192,40 @@ private struct DailyForecastRow: View {
     let day: DailyForecast
     let isToday: Bool
     let timeZone: TimeZone
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
+    @ScaledMetric(relativeTo: .body) private var symbolWidth = 32
+    @ScaledMetric(relativeTo: .caption) private var precipitationWidth = 52
+    @ScaledMetric(relativeTo: .body) private var temperatureWidth = 40
 
     var body: some View {
-        HStack(spacing: 12) {
+        let isAccessibilitySize = dynamicTypeSize.isAccessibilitySize
+        let layout = isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .leading, spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 12))
+        layout {
             Text(isToday ? String(localized: "Today", bundle: .module) : day.date.formattedWeekday(in: timeZone))
                 .frame(maxWidth: .infinity, alignment: .leading)
-            Image(systemName: day.condition.symbolName(isDaytime: true))
-                .symbolRenderingMode(.multicolor)
-                .frame(width: 32)
-                .accessibilityLabel(day.condition.localizedDescription)
-            Label(day.precipitationProbabilityPercent.formattedPercent, systemImage: "drop.fill")
-                .labelStyle(CompactLabelStyle())
-                .font(.caption)
-                .foregroundStyle(.blue)
-                .frame(width: 52, alignment: .leading)
-            Text(day.minTemperature.formattedTemperature)
-                .foregroundStyle(.secondary)
-                .frame(width: 40, alignment: .trailing)
-            Text(day.maxTemperature.formattedTemperature)
-                .fontWeight(.medium)
-                .frame(width: 40, alignment: .trailing)
+            HStack(spacing: 12) {
+                Image(systemName: day.condition.symbolName(isDaytime: true))
+                    .symbolRenderingMode(.multicolor)
+                    .frame(width: isAccessibilitySize ? nil : symbolWidth)
+                    .accessibilityLabel(day.condition.localizedDescription)
+                Label(day.precipitationProbabilityPercent.formattedPercent, systemImage: "drop.fill")
+                    .labelStyle(CompactLabelStyle())
+                    .font(.caption)
+                    .foregroundStyle(.blue)
+                    .frame(width: isAccessibilitySize ? nil : precipitationWidth, alignment: .leading)
+                if isAccessibilitySize {
+                    Spacer(minLength: 0)
+                }
+                Text(day.minTemperature.formattedTemperature)
+                    .foregroundStyle(.secondary)
+                    .frame(width: isAccessibilitySize ? nil : temperatureWidth, alignment: .trailing)
+                Text(day.maxTemperature.formattedTemperature)
+                    .fontWeight(.medium)
+                    .frame(width: isAccessibilitySize ? nil : temperatureWidth, alignment: .trailing)
+            }
+            .lineLimit(1)
         }
         .monospacedDigit()
         .accessibilityElement(children: .combine)
@@ -269,3 +310,6 @@ private struct ForecastPreview: View {
 #Preview("Loading") { ForecastPreview(state: .loading) }
 #Preview("Offline – Dark") { ForecastPreview(state: .failed(.noConnection)).preferredColorScheme(.dark) }
 #Preview("API error") { ForecastPreview(state: .failed(.server(message: "Latitude must be in range of -90 to 90°."))) }
+#Preview("Loaded – Accessibility XL") {
+    ForecastPreview(state: .loaded(previewForecast)).dynamicTypeSize(.accessibility3)
+}

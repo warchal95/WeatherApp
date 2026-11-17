@@ -109,15 +109,18 @@ private struct CityRow: View {
     let city: City
     let systemImage: String
     let onSelect: (City) -> Void
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     var body: some View {
         Button {
             onSelect(city)
         } label: {
             HStack(spacing: 12) {
-                Image(systemName: systemImage)
-                    .foregroundStyle(.secondary)
-                    .accessibilityHidden(true)
+                if !dynamicTypeSize.isAccessibilitySize {
+                    Image(systemName: systemImage)
+                        .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
+                }
                 VStack(alignment: .leading, spacing: 2) {
                     Text(city.name)
                         .font(.body.weight(.medium))
@@ -178,3 +181,6 @@ private struct CitySearchPreview: View {
 #Preview("No results") { CitySearchPreview(content: .noResults(query: "Qwerty")) }
 #Preview("Offline – Dark") { CitySearchPreview(content: .failed(.noConnection)).preferredColorScheme(.dark) }
 #Preview("Invalid input") { CitySearchPreview(content: .results(previewCities), validationIssue: .containsDigits) }
+#Preview("Results – Accessibility XL") {
+    CitySearchPreview(content: .results(previewCities)).dynamicTypeSize(.accessibility3)
+}
