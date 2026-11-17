@@ -11,7 +11,8 @@ let package = Package(
         .library(name: "WeatherDomain", targets: ["WeatherDomain"]),
         .library(name: "WeatherData", targets: ["WeatherData"]),
         .library(name: "SharedUI", targets: ["SharedUI"]),
-        .library(name: "CitySearch", targets: ["CitySearch"])
+        .library(name: "CitySearch", targets: ["CitySearch"]),
+        .library(name: "Forecast", targets: ["Forecast"])
     ],
     targets: [
         .target(name: "Networking"),
@@ -19,10 +20,12 @@ let package = Package(
         .target(name: "WeatherData", dependencies: ["WeatherDomain", "Networking"]),
         .target(name: "SharedUI", dependencies: ["WeatherDomain"], resources: [.process("Resources")]),
         .target(name: "CitySearch", dependencies: ["WeatherDomain", "SharedUI"], resources: [.process("Resources")]),
+        .target(name: "Forecast", dependencies: ["WeatherDomain", "SharedUI"], resources: [.process("Resources")]),
         .target(name: "NetworkingTestSupport"),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking", "NetworkingTestSupport"]),
         .testTarget(name: "WeatherDomainTests", dependencies: ["WeatherDomain"]),
         .testTarget(name: "WeatherDataTests", dependencies: ["WeatherData", "NetworkingTestSupport"]),
-        .testTarget(name: "CitySearchTests", dependencies: ["CitySearch"])
+        .testTarget(name: "CitySearchTests", dependencies: ["CitySearch"]),
+        .testTarget(name: "ForecastTests", dependencies: ["Forecast"])
     ]
 )
