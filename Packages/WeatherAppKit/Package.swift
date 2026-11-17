@@ -9,12 +9,14 @@ let package = Package(
     products: [
         .library(name: "Networking", targets: ["Networking"]),
         .library(name: "WeatherDomain", targets: ["WeatherDomain"]),
-        .library(name: "WeatherData", targets: ["WeatherData"])
+        .library(name: "WeatherData", targets: ["WeatherData"]),
+        .library(name: "SharedUI", targets: ["SharedUI"])
     ],
     targets: [
         .target(name: "Networking"),
         .target(name: "WeatherDomain"),
         .target(name: "WeatherData", dependencies: ["WeatherDomain", "Networking"]),
+        .target(name: "SharedUI", dependencies: ["WeatherDomain"], resources: [.process("Resources")]),
         .target(name: "NetworkingTestSupport"),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking", "NetworkingTestSupport"]),
         .testTarget(name: "WeatherDomainTests", dependencies: ["WeatherDomain"]),

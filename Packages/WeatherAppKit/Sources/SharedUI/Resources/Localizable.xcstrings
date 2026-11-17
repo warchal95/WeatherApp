@@ -1,0 +1,66 @@
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "Try again": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Spróbuj ponownie"
+          }
+        }
+      }
+    },
+    "No internet connection": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak połączenia z internetem"
+          }
+        }
+      }
+    },
+    "Couldn't access saved data": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie udało się odczytać zapisanych danych"
+          }
+        }
+      }
+    },
+    "Something went wrong": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Coś poszło nie tak"
+          }
+        }
+      }
+    },
+    "Check your connection and try again.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sprawdź połączenie i spróbuj ponownie."
+          }
+        }
+      }
+    },
+    "The weather service didn't respond as expected. Please try again in a moment.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Serwis pogodowy odpowiedział nieprawidłowo. Spróbuj ponownie za chwilę."
+          }
+        }
+      }
+    }
+  }
+}
