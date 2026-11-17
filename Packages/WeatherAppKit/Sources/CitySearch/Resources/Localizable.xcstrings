@@ -1,1 +1,178 @@
-{"sourceLanguage":"en","version":"1.0","strings":{}}
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "City name": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nazwa miejscowości"
+          }
+        }
+      }
+    },
+    "City names can't contain digits.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nazwa miejscowości nie może zawierać cyfr."
+          }
+        }
+      }
+    },
+    "Keep typing": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pisz dalej"
+          }
+        }
+      }
+    },
+    "Recent searches": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ostatnio wyszukiwane"
+          }
+        }
+      }
+    },
+    "Remove": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Usuń"
+          }
+        }
+      }
+    },
+    "Results": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyniki"
+          }
+        }
+      }
+    },
+    "Search for a city": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyszukaj miejscowość"
+          }
+        }
+      }
+    },
+    "Searching…": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wyszukiwanie…"
+          }
+        }
+      }
+    },
+    "Shows the weather forecast": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pokazuje prognozę pogody"
+          }
+        }
+      }
+    },
+    "Type a city name to see its weather forecast. Cities you open are saved here.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wpisz nazwę miejscowości, aby zobaczyć prognozę pogody. Otwierane miejscowości zapiszą się tutaj."
+          }
+        }
+      }
+    },
+    "Type at least %lld letters to search.": {
+      "localizations": {
+        "en": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Type at least %lld letter to search."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Type at least %lld letters to search."
+                }
+              }
+            }
+          }
+        },
+        "pl": {
+          "variations": {
+            "plural": {
+              "one": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wpisz co najmniej %lld literę, aby wyszukać."
+                }
+              },
+              "few": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wpisz co najmniej %lld litery, aby wyszukać."
+                }
+              },
+              "many": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wpisz co najmniej %lld liter, aby wyszukać."
+                }
+              },
+              "other": {
+                "stringUnit": {
+                  "state": "translated",
+                  "value": "Wpisz co najmniej %lld litery, aby wyszukać."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Use only letters, spaces and hyphens.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Używaj tylko liter, spacji i myślników."
+          }
+        }
+      }
+    },
+    "Weather": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pogoda"
+          }
+        }
+      }
+    }
+  }
+}
