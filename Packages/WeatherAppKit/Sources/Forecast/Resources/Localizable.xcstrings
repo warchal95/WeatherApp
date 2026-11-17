@@ -1,1 +1,236 @@
-{"sourceLanguage":"en","version":"1.0","strings":{}}
+{
+  "sourceLanguage": "en",
+  "version": "1.0",
+  "strings": {
+    "Chance of precipitation": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prawdopodobieństwo opadów"
+          }
+        }
+      }
+    },
+    "Clear sky": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bezchmurnie"
+          }
+        }
+      }
+    },
+    "Cloud cover": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zachmurzenie"
+          }
+        }
+      }
+    },
+    "Couldn't update the forecast. Pull down to try again.": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Nie udało się odświeżyć prognozy. Przeciągnij w dół, aby spróbować ponownie."
+          }
+        }
+      }
+    },
+    "Daily forecast": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Prognoza dzienna"
+          }
+        }
+      }
+    },
+    "Drizzle": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mżawka"
+          }
+        }
+      }
+    },
+    "Feels like %@": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Odczuwalna %@"
+          }
+        }
+      }
+    },
+    "Fog": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mgła"
+          }
+        }
+      }
+    },
+    "Freezing drizzle": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marznąca mżawka"
+          }
+        }
+      }
+    },
+    "Freezing rain": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Marznący deszcz"
+          }
+        }
+      }
+    },
+    "Loading forecast…": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Wczytywanie prognozy…"
+          }
+        }
+      }
+    },
+    "Mainly clear": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przeważnie bezchmurnie"
+          }
+        }
+      }
+    },
+    "Next 24 hours": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Najbliższe 24 godziny"
+          }
+        }
+      }
+    },
+    "No data": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Brak danych"
+          }
+        }
+      }
+    },
+    "Now": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Teraz"
+          }
+        }
+      }
+    },
+    "Overcast": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pochmurno"
+          }
+        }
+      }
+    },
+    "Partly cloudy": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Częściowe zachmurzenie"
+          }
+        }
+      }
+    },
+    "Rain": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Deszcz"
+          }
+        }
+      }
+    },
+    "Rain showers": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przelotne opady deszczu"
+          }
+        }
+      }
+    },
+    "Snow": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Śnieg"
+          }
+        }
+      }
+    },
+    "Snow showers": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Przelotne opady śniegu"
+          }
+        }
+      }
+    },
+    "Thunderstorm": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Burza"
+          }
+        }
+      }
+    },
+    "Today": {
+      "localizations": {
+        "pl": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Dzisiaj"
+          }
+        }
+      }
+    }
+  }
+}
