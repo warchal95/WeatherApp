@@ -2,7 +2,17 @@ import Foundation
 
 extension Measurement where UnitType == UnitTemperature {
     var formattedTemperature: String {
-        formatted(.measurement(width: .narrow, usage: .weather, numberFormatStyle: .number.precision(.fractionLength(0))))
+        formattedTemperature(locale: .autoupdatingCurrent)
+    }
+
+    func formattedTemperature(locale: Locale) -> String {
+        let unit = UnitTemperature(forLocale: locale, usage: .weather)
+        let rounded = converted(to: unit).value.rounded()
+        let displayed = Measurement(value: rounded == 0 ? 0 : rounded, unit: unit)
+        return displayed.formatted(
+            .measurement(width: .narrow, usage: .asProvided, numberFormatStyle: .number.precision(.fractionLength(0)))
+                .locale(locale)
+        )
     }
 }
 

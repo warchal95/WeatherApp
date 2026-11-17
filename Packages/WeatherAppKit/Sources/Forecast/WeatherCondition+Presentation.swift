@@ -1,19 +1,20 @@
 import WeatherDomain
 
 extension WeatherCondition {
+    /// Outline cloud variants: in multicolor mode the filled ones draw white clouds, invisible on a light background.
     func symbolName(isDaytime: Bool) -> String {
         switch self {
         case .clear: isDaytime ? "sun.max.fill" : "moon.stars.fill"
         case .mainlyClear: isDaytime ? "sun.min.fill" : "moon.fill"
-        case .partlyCloudy: isDaytime ? "cloud.sun.fill" : "cloud.moon.fill"
-        case .overcast: "cloud.fill"
-        case .fog: "cloud.fog.fill"
-        case .drizzle: "cloud.drizzle.fill"
-        case .freezingDrizzle, .freezingRain: "cloud.sleet.fill"
-        case .rain: "cloud.rain.fill"
-        case .rainShowers: "cloud.heavyrain.fill"
-        case .snow, .snowShowers: "cloud.snow.fill"
-        case .thunderstorm: "cloud.bolt.rain.fill"
+        case .partlyCloudy: isDaytime ? "cloud.sun" : "cloud.moon"
+        case .overcast: "cloud"
+        case .fog: "cloud.fog"
+        case .drizzle: "cloud.drizzle"
+        case .freezingDrizzle, .freezingRain: "cloud.sleet"
+        case .rain: "cloud.rain"
+        case .rainShowers: "cloud.heavyrain"
+        case .snow, .snowShowers: "cloud.snow"
+        case .thunderstorm: "cloud.bolt.rain"
         case .unknown: "thermometer.medium"
         }
     }

@@ -43,6 +43,8 @@ struct CitySearchView: View {
             }
         }
         .listStyle(.insetGrouped)
+        .scrollContentBackground(.hidden)
+        .background(Color(.systemGroupedBackground))
         .overlay {
             if validationIssue == nil {
                 CitySearchStateOverlay(content: content, onRetry: onRetry)
