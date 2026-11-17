@@ -1,12 +1,14 @@
 import CitySearch
 import Forecast
+import Networking
 import WeatherDomain
 
 @MainActor
 final class AppCoordinator {
-    typealias Dependencies = CitySearchViewFactory.Dependencies & ForecastViewFactory.Dependencies
+    typealias Dependencies = CitySearchViewFactory.Dependencies & ForecastViewFactory.Dependencies & HasNetworkMonitor
 
     let router: AppRouter
+    let connectivityViewModel: ConnectivityViewModel
     private let citySearchViewFactory: CitySearchViewFactory
     private let forecastViewFactory: ForecastViewFactory
 
@@ -16,6 +18,7 @@ final class AppCoordinator {
 
     init(dependencies: Dependencies, router: AppRouter = AppRouter()) {
         self.router = router
+        connectivityViewModel = ConnectivityViewModel(networkMonitor: dependencies.networkMonitor)
         citySearchViewFactory = CitySearchViewFactory(dependencies: dependencies)
         forecastViewFactory = ForecastViewFactory(dependencies: dependencies)
     }

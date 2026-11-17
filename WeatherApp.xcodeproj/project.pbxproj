@@ -12,6 +12,7 @@
 		5EA7000000000000000000C2 /* WeatherData in Frameworks */ = {isa = PBXBuildFile; productRef = 5EA7000000000000000000B2 /* WeatherData */; };
 		5EA7000000000000000000C3 /* CitySearch in Frameworks */ = {isa = PBXBuildFile; productRef = 5EA7000000000000000000B3 /* CitySearch */; };
 		5EA7000000000000000000C4 /* Forecast in Frameworks */ = {isa = PBXBuildFile; productRef = 5EA7000000000000000000B4 /* Forecast */; };
+		5EA7000000000000000000C5 /* SharedUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5EA7000000000000000000B5 /* SharedUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 				5EA7000000000000000000C2 /* WeatherData in Frameworks */,
 				5EA7000000000000000000C3 /* CitySearch in Frameworks */,
 				5EA7000000000000000000C4 /* Forecast in Frameworks */,
+				5EA7000000000000000000C5 /* SharedUI in Frameworks */,
 			);
 		};
 		3003541B30AB7FB5000828F7 /* Frameworks */ = {
@@ -122,6 +124,7 @@
 				5EA7000000000000000000B2 /* WeatherData */,
 				5EA7000000000000000000B3 /* CitySearch */,
 				5EA7000000000000000000B4 /* Forecast */,
+				5EA7000000000000000000B5 /* SharedUI */,
 			);
 			productName = WeatherApp;
 			productReference = 3003541130AB7FB1000828F7 /* WeatherApp.app */;
@@ -566,6 +569,7 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
 /* Begin XCLocalSwiftPackageReference section */
 		5EA7000000000000000000A0 /* XCLocalSwiftPackageReference "Packages/WeatherAppKit" */ = {
 			isa = XCLocalSwiftPackageReference;
@@ -593,6 +597,10 @@
 		5EA7000000000000000000B4 /* Forecast */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Forecast;
+		};
+		5EA7000000000000000000B5 /* SharedUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SharedUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

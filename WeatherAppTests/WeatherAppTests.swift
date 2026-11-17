@@ -1,4 +1,5 @@
 import CitySearch
+import Networking
 import Testing
 import WeatherDomain
 @testable import WeatherApp
@@ -34,10 +35,11 @@ struct AppCoordinatorTests {
     }
 }
 
-private struct DependenciesStub: HasCityRepository, HasForecastRepository, HasSearchHistoryRepository {
+private struct DependenciesStub: HasCityRepository, HasForecastRepository, HasSearchHistoryRepository, HasNetworkMonitor {
     let cityRepository: CityRepositoryType = RepositoryStub()
     let forecastRepository: ForecastRepositoryType = RepositoryStub()
     let searchHistoryRepository: SearchHistoryRepositoryType = RepositoryStub()
+    let networkMonitor: NetworkMonitoring = NetworkMonitorMock()
 }
 
 private struct RepositoryStub: CityRepositoryType, ForecastRepositoryType, SearchHistoryRepositoryType {
