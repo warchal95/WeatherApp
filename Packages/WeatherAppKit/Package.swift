@@ -7,10 +7,13 @@ let package = Package(
     defaultLocalization: "en",
     platforms: [.iOS(.v17)],
     products: [
-        .library(name: "Networking", targets: ["Networking"])
+        .library(name: "Networking", targets: ["Networking"]),
+        .library(name: "WeatherDomain", targets: ["WeatherDomain"])
     ],
     targets: [
         .target(name: "Networking"),
-        .testTarget(name: "NetworkingTests", dependencies: ["Networking"])
+        .target(name: "WeatherDomain"),
+        .testTarget(name: "NetworkingTests", dependencies: ["Networking"]),
+        .testTarget(name: "WeatherDomainTests", dependencies: ["WeatherDomain"])
     ]
 )
