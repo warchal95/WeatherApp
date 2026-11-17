@@ -10,16 +10,19 @@ let package = Package(
         .library(name: "Networking", targets: ["Networking"]),
         .library(name: "WeatherDomain", targets: ["WeatherDomain"]),
         .library(name: "WeatherData", targets: ["WeatherData"]),
-        .library(name: "SharedUI", targets: ["SharedUI"])
+        .library(name: "SharedUI", targets: ["SharedUI"]),
+        .library(name: "CitySearch", targets: ["CitySearch"])
     ],
     targets: [
         .target(name: "Networking"),
         .target(name: "WeatherDomain"),
         .target(name: "WeatherData", dependencies: ["WeatherDomain", "Networking"]),
         .target(name: "SharedUI", dependencies: ["WeatherDomain"], resources: [.process("Resources")]),
+        .target(name: "CitySearch", dependencies: ["WeatherDomain", "SharedUI"], resources: [.process("Resources")]),
         .target(name: "NetworkingTestSupport"),
         .testTarget(name: "NetworkingTests", dependencies: ["Networking", "NetworkingTestSupport"]),
         .testTarget(name: "WeatherDomainTests", dependencies: ["WeatherDomain"]),
-        .testTarget(name: "WeatherDataTests", dependencies: ["WeatherData", "NetworkingTestSupport"])
+        .testTarget(name: "WeatherDataTests", dependencies: ["WeatherData", "NetworkingTestSupport"]),
+        .testTarget(name: "CitySearchTests", dependencies: ["CitySearch"])
     ]
 )
