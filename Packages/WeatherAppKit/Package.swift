@@ -13,7 +13,8 @@ let package = Package(
     targets: [
         .target(name: "Networking"),
         .target(name: "WeatherDomain"),
-        .testTarget(name: "NetworkingTests", dependencies: ["Networking"]),
+        .target(name: "NetworkingTestSupport"),
+        .testTarget(name: "NetworkingTests", dependencies: ["Networking", "NetworkingTestSupport"]),
         .testTarget(name: "WeatherDomainTests", dependencies: ["WeatherDomain"])
     ]
 )

@@ -2,6 +2,7 @@ import Foundation
 import os
 import Testing
 @testable import Networking
+import NetworkingTestSupport
 
 struct HTTPClientTests {
     private struct Payload: Decodable, Equatable, Sendable {
