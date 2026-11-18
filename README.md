@@ -123,13 +123,15 @@ Packages/WeatherAppKit/
 | State | Search | Forecast |
 |---|---|---|
 | Loading | `ProgressView` "Searching…" once the debounce has passed | `ProgressView` "Loading forecast…" |
-| Empty field | history, or a prompt to search | — |
-| Query too short | hint "Type at least 2 letters to search." (the API returns nothing for 1 character) | — |
-| Invalid characters | message above the list, no API request | — |
-| No results | system `ContentUnavailableView.search` | — |
+| Empty field | history, or a prompt to search | n/a |
+| Query too short | hint "Type at least 2 letters to search." (the API returns nothing for 1 character) | n/a |
+| Invalid characters | message above the list, no API request | n/a |
+| No results | system `ContentUnavailableView.search` | n/a |
 | No internet | `ContentUnavailableView` with a "Try again" button, plus the banner at the bottom of the screen | same as search |
 | API error | message from the `reason` field of the Open-Meteo response, with retry | same as search |
-| Failed refresh | — | the forecast stays on screen, with an error note above it |
+| Failed refresh | n/a | the forecast stays on screen, with an error note above it |
+
+n/a: the state doesn't occur on that screen. The forecast screen has no text input, and only the forecast supports pull to refresh.
 
 No connection is detected from the `URLError` of the request itself (`notConnectedToInternet`,
 `networkConnectionLost`, timeout, unreachable host). `NWPathMonitor` drives only the banner, because its
