@@ -1,11 +1,11 @@
 # WeatherApp
 
-Aplikacja iOS do sprawdzania prognozy pogody, przygotowana jako zadanie rekrutacyjne. Pozwala wyszukać
-miejscowość, pamięta historię wyszukiwania między uruchomieniami i pokazuje szczegółową prognozę:
-aktualne warunki, najbliższe 24 godziny i 7 kolejnych dni.
+Aplikacja iOS do sprawdzania prognozy pogody. Pozwala wyszukać miejscowość, pamięta historię
+wyszukiwania między uruchomieniami i pokazuje szczegółową prognozę: aktualne warunki, najbliższe
+24 godziny i 7 kolejnych dni.
 
-Mimo niewielkiego zakresu projekt jest zbudowany jak aplikacja produkcyjna: podzielony na moduły SPM,
-z warstwami MVVM-C, testami jednostkowymi i obsługą wszystkich stanów aplikacji.
+Projekt jest podzielony na moduły SPM, z warstwami MVVM-C, testami jednostkowymi i obsługą wszystkich
+stanów aplikacji.
 
 | Wyszukiwanie | Prognoza | Prognoza (Dark Mode) | Historia (Dark Mode) |
 |:---:|:---:|:---:|:---:|
@@ -191,13 +191,3 @@ xcodebuild test -project WeatherApp.xcodeproj -scheme WeatherApp -destination 'p
 - Test plan łączący testy pakietu i aplikacji oraz CI (GitHub Actions) z buildem i testami.
 - Testy snapshotowe widoków w trybie jasnym i ciemnym oraz dla dużych rozmiarów tekstu.
 - Widżet z prognozą (WidgetKit) korzystający z tych samych modułów `WeatherDomain` i `WeatherData`.
-
-## Proces i użycie AI
-
-Historia commitów pokazuje kolejne kroki: od konfiguracji projektu, przez moduł sieci, domenę i dane,
-po ekrany, spięcie aplikacji i poprawki znalezione przy testowaniu na symulatorze (czytelność ikon,
-„-0°”, Dynamic Type). Commity nie są squashowane.
-
-Przy pracy korzystałem z agenta AI (Claude Code): do analizy wymagań, pisania kodu i testów oraz
-sprawdzania aplikacji na symulatorach z iOS 17 i najnowszym iOS. Decyzje architektoniczne i zakres
-podejmowałem sam, a cały kod przejrzałem.
