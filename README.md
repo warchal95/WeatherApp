@@ -1,66 +1,65 @@
 # WeatherApp
 
-Aplikacja iOS do sprawdzania prognozy pogody. Pozwala wyszukać miejscowość, pamięta historię
-wyszukiwania między uruchomieniami i pokazuje szczegółową prognozę: aktualne warunki, najbliższe
-24 godziny i 7 kolejnych dni.
+An iOS app for checking the weather forecast. Search for a city, keep your search history between
+launches, and see a detailed forecast: current conditions, the next 24 hours and the next 7 days.
 
-Projekt jest podzielony na moduły SPM, z warstwami MVVM-C, testami jednostkowymi i obsługą wszystkich
-stanów aplikacji.
+The project is split into SPM modules, with MVVM-C layers, unit tests and handling for every app state.
+The UI is available in English and Polish; the screenshots below show the Polish version.
 
-| Wyszukiwanie | Prognoza | Prognoza (Dark Mode) | Historia (Dark Mode) |
+| Search | Forecast | Forecast (Dark Mode) | History (Dark Mode) |
 |:---:|:---:|:---:|:---:|
 | <img src="docs/screenshots/search-results-light.png" width="200"> | <img src="docs/screenshots/forecast-light.png" width="200"> | <img src="docs/screenshots/forecast-dark.png" width="200"> | <img src="docs/screenshots/history-dark.png" width="200"> |
 
-| Walidacja | Brak wyników | Brak połączenia | Prognoza dzienna |
+| Validation | No results | Offline | Daily forecast |
 |:---:|:---:|:---:|:---:|
 | <img src="docs/screenshots/validation-light.png" width="200"> | <img src="docs/screenshots/no-results-dark.png" width="200"> | <img src="docs/screenshots/offline-banner-light.png" width="200"> | <img src="docs/screenshots/daily-forecast-dark.png" width="200"> |
 
-## Uruchomienie
+## Getting started
 
-**Wymagania:** Xcode 26 lub 27, iOS 17 lub nowszy.
+**Requirements:** Xcode 26 or 27, iOS 17 or later.
 
-1. Sklonuj repozytorium i otwórz `WeatherApp.xcodeproj`.
-2. Wybierz schemat `WeatherApp` i dowolny symulator lub urządzenie z iOS 17+.
-3. Uruchom (⌘R).
+1. Clone the repository and open `WeatherApp.xcodeproj`.
+2. Select the `WeatherApp` scheme and any simulator or device running iOS 17+.
+3. Run (⌘R).
 
-Na symulatorze podpisywanie nie jest potrzebne. Do uruchomienia na urządzeniu wybierz własny zespół
-w zakładce *Signing & Capabilities* targetu `WeatherApp`.
+The simulator needs no code signing. To run on a device, choose your own team under
+*Signing & Capabilities* for the `WeatherApp` target.
 
-Projekt nie ma zewnętrznych zależności ani kluczy API. Dane pochodzą z [Open-Meteo](https://open-meteo.com),
-które udostępnia wyszukiwanie miejscowości i prognozę bez rejestracji.
+The project has no third-party dependencies and no API keys. Data comes from
+[Open-Meteo](https://open-meteo.com), which provides city search and forecasts without registration.
 
-## Funkcje
+## Features
 
-- **Wyszukiwanie miejscowości** z walidacją w trakcie pisania:
-  - przyjmuje litery dowolnego alfabetu (także polskie znaki), spacje i myślniki, np. „Bielsko-Biała”, „Nowy Sącz”;
-  - odrzuca cyfry i znaki specjalne, osobnym komunikatem dla każdego przypadku;
-  - zapytanie trafia do API po 400 ms przerwy w pisaniu, a poprzednie zapytanie jest anulowane.
-- **Lista wyników** z regionem i krajem, żeby odróżnić miejscowości o tej samej nazwie.
-- **Historia wyszukiwania**: ostatnie 10 otwartych miejscowości, bez duplikatów, najnowsze na górze. Wpis można usunąć gestem przesunięcia. Historia przetrwa ponowne uruchomienie aplikacji.
-- **Szczegóły prognozy**:
-  - aktualna temperatura, temperatura odczuwalna i opis warunków;
-  - zachmurzenie i prawdopodobieństwo opadów;
-  - prognoza na najbliższe 24 godziny i na 7 dni;
-  - odświeżanie przeciągnięciem w dół.
-- **Baner braku połączenia** widoczny na każdym ekranie.
-- **Dark Mode, Dynamic Type i VoiceOver**: wyłącznie natywne komponenty i kolory semantyczne. Przy dużych rozmiarach tekstu wiersze przechodzą w układ pionowy.
-- **Język polski i angielski** (String Catalogs, w tym poprawne formy liczby mnogiej). Język wyników z API też podąża za językiem aplikacji.
-- **Jednostki i czas**: temperatury w jednostce z ustawień regionalnych użytkownika (°C lub °F), godziny w strefie czasowej wybranego miasta.
+- **City search** with validation while typing:
+  - accepts letters from any alphabet (including Polish characters), spaces and hyphens, e.g. "Bielsko-Biała", "Nowy Sącz";
+  - rejects digits and special characters, with a separate message for each case;
+  - the request is sent after a 400 ms pause in typing, and the previous request is cancelled.
+- **Results list** with region and country, so cities with the same name can be told apart.
+- **Search history**: the last 10 opened cities, without duplicates, newest first. Entries can be removed with a swipe. History persists across app launches.
+- **Forecast details**:
+  - current temperature, apparent temperature and a description of the conditions;
+  - cloud cover and chance of precipitation;
+  - forecast for the next 24 hours and the next 7 days;
+  - pull to refresh.
+- **Offline banner** visible on every screen.
+- **Dark Mode, Dynamic Type and VoiceOver**: native components and semantic colors only. At large text sizes, rows switch to a vertical layout.
+- **English and Polish** (String Catalogs, including correct plural forms). Search results from the API follow the app language too.
+- **Units and time**: temperatures in the unit from the user's regional settings (°C or °F), hours in the selected city's time zone.
 
-## Architektura
+## Architecture
 
-Aplikacja stosuje MVVM-C z warstwą domenową (UseCase'y) i danych (Repository + Mapper).
-Kod jest podzielony na moduły lokalnego pakietu SPM `Packages/WeatherAppKit`, a target aplikacji służy
-tylko do złożenia zależności i nawigacji.
+The app follows MVVM-C with a domain layer (use cases) and a data layer (repository + mapper).
+The code is split into modules of the local SPM package `Packages/WeatherAppKit`; the app target only
+composes dependencies and handles navigation.
 
 ```mermaid
 graph TD
-    App["WeatherApp (target aplikacji)<br/>AppDependencies · AppCoordinator · AppRouter"]
+    App["WeatherApp (app target)<br/>AppDependencies · AppCoordinator · AppRouter"]
     CitySearch["CitySearch<br/>ViewModel · Views · ViewFactory"]
     Forecast["Forecast<br/>ViewModel · Views · ViewFactory"]
-    SharedUI["SharedUI<br/>stany ładowania i błędów, baner offline"]
-    Domain["WeatherDomain<br/>modele · UseCase'y · protokoły repozytoriów · walidator"]
-    Data["WeatherData<br/>DTO Open-Meteo · mappery · repozytoria"]
+    SharedUI["SharedUI<br/>loading and error states, offline banner"]
+    Domain["WeatherDomain<br/>models · use cases · repository protocols · validator"]
+    Data["WeatherData<br/>Open-Meteo DTOs · mappers · repositories"]
     Networking["Networking<br/>HTTPClient · NetworkError · NetworkMonitor"]
 
     App --> CitySearch
@@ -77,120 +76,121 @@ graph TD
     App --> Networking
 ```
 
-Najważniejsza zasada: **funkcje (`CitySearch`, `Forecast`) zależą tylko od `WeatherDomain`**. Nie wiedzą
-nic o Open-Meteo, sieci ani UserDefaults. Implementacje repozytoriów z `WeatherData` są wstrzykiwane
-w jednym miejscu, w `AppDependencies`. Zmiana dostawcy pogody oznacza nowy moduł danych, a funkcje się nie zmieniają.
+The key rule: **features (`CitySearch`, `Forecast`) depend only on `WeatherDomain`**. They know nothing
+about Open-Meteo, networking or UserDefaults. Repository implementations from `WeatherData` are injected
+in one place, `AppDependencies`. Switching weather providers means a new data module; the features stay
+unchanged.
 
-### Warstwy i odpowiedzialności
+### Layers and responsibilities
 
-| Element | Odpowiada za | Nigdy nie |
+| Component | Responsible for | Never |
 |---|---|---|
-| `AppCoordinator` + `AppRouter` | nawigację: zamienia akcje z ViewModeli na przejścia w typowanej ścieżce `NavigationStack` | nie zawiera logiki biznesowej |
-| `ViewFactory` | tworzenie ekranu: ViewModel + UseCase'y z wstrzykniętymi zależnościami | nie wykonuje pracy przy tworzeniu |
-| `ContainerView` | obserwuje ViewModel, przekazuje stan i akcje do widoku | nie podejmuje decyzji o wyglądzie |
-| `View` | rysuje stan i wywołuje akcje przez domknięcia | nie trzyma referencji do ViewModelu ani logiki |
-| `ViewModel` (`@Observable`) | cały stan ekranu jako enum, wywołuje UseCase'y, emituje akcje nawigacyjne | nie nawiguje sam i nie sięga do repozytorium |
-| `UseCase` | jedna operacja biznesowa i jej reguły, np. limit i deduplikacja historii | nie wywołuje innych UseCase'ów |
-| `Repository` + `Mapper` | dostęp do danych, mapowanie DTO na modele domenowe | nie zawiera logiki biznesowej |
+| `AppCoordinator` + `AppRouter` | navigation: turns ViewModel actions into transitions on the typed `NavigationStack` path | contains business logic |
+| `ViewFactory` | building a screen: ViewModel + use cases with injected dependencies | does work on creation |
+| `ContainerView` | observes the ViewModel, passes state and actions to the view | makes rendering decisions |
+| `View` | renders state and calls actions through closures | holds a ViewModel reference or logic |
+| `ViewModel` (`@Observable`) | all screen state as an enum, calls use cases, emits navigation actions | navigates itself or reaches a repository |
+| `UseCase` | one business operation and its rules, e.g. history limit and de-duplication | calls other use cases |
+| `Repository` + `Mapper` | data access, mapping DTOs to domain models | contains business logic |
 
-Zależności są wstrzykiwane przez inicjalizatory i opisane protokołami `Has…` (np. `HasCityRepository`),
-składanymi przez `&`. Każdy typ deklaruje dokładnie to, czego potrzebuje, a test dostarcza tylko te atrapy.
+Dependencies are injected through initializers and described by `Has…` protocols (e.g. `HasCityRepository`)
+composed with `&`. Each type declares exactly what it needs, and a test provides only those doubles.
 
-### Struktura projektu
+### Project structure
 
 ```
-WeatherApp/                   target aplikacji: złożenie zależności i nawigacja
-├─ App/                       punkt wejścia, AppDependencies (composition root)
+WeatherApp/                   app target: dependency composition and navigation
+├─ App/                       entry point, AppDependencies (composition root)
 ├─ Navigation/                AppCoordinator, AppRouter, AppCoordinatorView
-├─ Connectivity/              ConnectivityViewModel (baner offline)
+├─ Connectivity/              ConnectivityViewModel (offline banner)
 └─ Resources/                 InfoPlist.xcstrings
-WeatherAppTests/              testy Coordinatora i łączności
-WeatherAppUITests/            testy UI niezależne od sieci
+WeatherAppTests/              coordinator and connectivity tests
+WeatherAppUITests/            UI tests that don't depend on the network
 Packages/WeatherAppKit/
 ├─ Sources/
 │  ├─ Networking/             HTTPClient, Endpoint, NetworkError, NetworkMonitor
-│  ├─ WeatherDomain/          Models/, UseCases/, Repositories/ (protokoły), Validation/
+│  ├─ WeatherDomain/          Models/, UseCases/, Repositories/ (protocols), Validation/
 │  ├─ WeatherData/            DTO/, Mappers/, Repositories/, OpenMeteo/
 │  ├─ SharedUI/               ErrorStateView, LoadingStateView, OfflineBanner
 │  ├─ CitySearch/             ViewModel, Views/, ViewFactory, Resources/ (xcstrings)
 │  ├─ Forecast/               ViewModel, Views/, ViewFactory, Resources/ (xcstrings)
-│  └─ NetworkingTestSupport/  atrapa URLProtocol współdzielona przez testy
-└─ Tests/                     testy dla każdego modułu
+│  └─ NetworkingTestSupport/  URLProtocol stub shared by the tests
+└─ Tests/                     tests for each module
 ```
 
-## Obsługa stanów
+## App states
 
-| Stan | Wyszukiwanie | Prognoza |
+| State | Search | Forecast |
 |---|---|---|
-| Ładowanie | `ProgressView` „Wyszukiwanie…” po upływie opóźnienia | `ProgressView` „Wczytywanie prognozy…” |
-| Puste pole | historia albo zachęta do wyszukania | — |
-| Za krótkie zapytanie | podpowiedź „Wpisz co najmniej 2 litery” (API nie zwraca wyników dla 1 znaku) | — |
-| Niepoprawne znaki | komunikat nad listą, bez zapytania do API | — |
-| Pusty wynik | systemowe `ContentUnavailableView.search` | — |
-| Brak internetu | `ContentUnavailableView` z przyciskiem „Spróbuj ponownie” i baner na dole ekranu | jak w wyszukiwaniu |
-| Błąd API | komunikat z pola `reason` odpowiedzi Open-Meteo, z ponowieniem | jak w wyszukiwaniu |
-| Nieudane odświeżenie | — | prognoza zostaje na ekranie, nad nią informacja o błędzie |
+| Loading | `ProgressView` "Searching…" once the debounce has passed | `ProgressView` "Loading forecast…" |
+| Empty field | history, or a prompt to search | — |
+| Query too short | hint "Type at least 2 letters to search." (the API returns nothing for 1 character) | — |
+| Invalid characters | message above the list, no API request | — |
+| No results | system `ContentUnavailableView.search` | — |
+| No internet | `ContentUnavailableView` with a "Try again" button, plus the banner at the bottom of the screen | same as search |
+| API error | message from the `reason` field of the Open-Meteo response, with retry | same as search |
+| Failed refresh | — | the forecast stays on screen, with an error note above it |
 
-Brak połączenia jest rozpoznawany z błędu `URLError` przy samym zapytaniu (`notConnectedToInternet`,
-`networkConnectionLost`, timeout, nieosiągalny host). `NWPathMonitor` steruje tylko banerem, bo jego
-odczyty potrafią się spóźniać względem faktycznego stanu sieci. Anulowane zapytania (np. przy dalszym
-pisaniu) nie pokazują błędu.
+No connection is detected from the `URLError` of the request itself (`notConnectedToInternet`,
+`networkConnectionLost`, timeout, unreachable host). `NWPathMonitor` drives only the banner, because its
+updates can lag behind the actual network state. Cancelled requests (e.g. while the user keeps typing)
+don't show an error.
 
-## Decyzje techniczne i kompromisy
+## Technical decisions and trade-offs
 
-- **SwiftUI i `@Observable`**: natywne od iOS 17, bez Combine. Kontener trzyma ViewModel w `@State`, co przy `@Observable` zastępuje `@StateObject`.
-- **Swift 6 ze ścisłą kontrolą współbieżności**: typy przekazywane między wątkami są `Sendable`, ViewModele działają na `@MainActor`, a błędy są typowane (`throws(DomainError)`).
-- **Moduły SPM zamiast folderów**: granice między warstwami pilnuje kompilator, a moduły można budować i testować osobno. Kosztem jest trochę więcej konfiguracji (`Package.swift`, publiczne API).
-- **UseCase także tam, gdzie tylko przekazuje wywołanie** (np. `GetForecastUseCase`): granica ViewModel–dane jest wszędzie taka sama, a reguły biznesowe (deduplikacja i limit historii, minimalna długość zapytania) mają swoje miejsce i testy.
-- **Historia w UserDefaults zamiast SwiftData**: to krótka lista małych rekordów. SwiftData dodałoby kontener modeli i `@Query` w widokach, co łamie podział na warstwy, bez żadnej korzyści. Zapis idzie przez osobne DTO z wersjonowanym kluczem (`searchHistory.v1`), więc format można później zmienić.
-- **Open-Meteo**: brak klucza API i wyszukiwanie miejscowości w pakiecie. Prawdopodobieństwo opadów „teraz” jest brane z danych godzinowych dla bieżącej godziny, bo API podaje je tylko godzinowo.
-- **Walidacja w dwóch krokach**: najpierw normalizacja (sklejanie rozłożonych polskich znaków, przycinanie spacji i myślnika pisanego na końcu, np. „Bielsko-”), potem sprawdzenie dozwolonych znaków. Dzięki temu użytkownik nie dostaje błędu w trakcie zwykłego pisania.
-- **Ikony pogody**: SF Symbols w wersji konturowej, bo wypełnione ikony chmur w trybie wielokolorowym są białe i znikają na jasnym tle.
-- **Zero zależności zewnętrznych**: sieć to `URLSession` z async/await, a atrapy w testach są pisane ręcznie.
+- **SwiftUI and `@Observable`**: native since iOS 17, no Combine. The container keeps its ViewModel in `@State`, which replaces `@StateObject` for `@Observable` types.
+- **Swift 6 with strict concurrency checking**: types passed across threads are `Sendable`, ViewModels run on `@MainActor`, and errors are typed (`throws(DomainError)`).
+- **SPM modules instead of folders**: the compiler enforces layer boundaries, and modules can be built and tested on their own. The cost is a bit more setup (`Package.swift`, public API).
+- **A use case even where it only forwards a call** (e.g. `GetForecastUseCase`): the ViewModel–data boundary is the same everywhere, and business rules (history de-duplication and limit, minimum query length) have a clear home and tests.
+- **History in UserDefaults rather than SwiftData**: it is a short list of small records. SwiftData would add a model container and `@Query` in views, which breaks the layering, for no benefit. Storage goes through a separate DTO with a versioned key (`searchHistory.v1`), so the format can change later.
+- **Open-Meteo**: no API key and built-in city search. The "current" chance of precipitation is taken from the hourly data for the current hour, because the API reports it only hourly.
+- **Two-step validation**: first normalization (composing decomposed Polish characters, trimming spaces and a trailing hyphen typed mid-word, e.g. "Bielsko-"), then a check of allowed characters. This way users don't see an error while typing normally.
+- **Weather icons**: outline SF Symbols, because filled cloud symbols render white in multicolor mode and disappear on a light background.
+- **No third-party dependencies**: networking is `URLSession` with async/await, and test doubles are written by hand.
 
-## Testy
+## Tests
 
-**63 testy w pakiecie** (Swift Testing) i **4 testy w aplikacji**, plus 2 testy UI:
+**63 package tests** (Swift Testing) and **4 app tests**, plus 2 UI tests:
 
-| Moduł | Co testujemy |
+| Module | What is tested |
 |---|---|
-| `Networking` | dekodowanie, budowanie URL z polskimi znakami, mapowanie błędów `URLError` i kodów HTTP |
-| `WeatherDomain` | walidator (polskie znaki, cyfry, znaki specjalne, normalizacja), reguły historii, wyszukiwanie |
-| `WeatherData` | mappery na danych w kształcie prawdziwych odpowiedzi Open-Meteo, kody pogody WMO, repozytoria przez atrapę `URLProtocol`, zapis historii |
-| `CitySearch` | przejścia stanów ViewModelu, opóźnienie i anulowanie zapytań, walidacja, historia, akcje nawigacyjne |
-| `Forecast` | ładowanie, ponowienie, odświeżanie z zachowaniem danych, formatowanie temperatur (bez „-0°”, °F dla `en_US`) |
-| aplikacja | Coordinator i Router, baner łączności, testy UI startu i walidacji |
+| `Networking` | decoding, building URLs with Polish characters, mapping `URLError` and HTTP status codes |
+| `WeatherDomain` | validator (Polish characters, digits, special characters, normalization), history rules, search |
+| `WeatherData` | mappers on data shaped like real Open-Meteo responses, WMO weather codes, repositories via a `URLProtocol` stub, history storage |
+| `CitySearch` | ViewModel state transitions, debouncing and cancelling requests, validation, history, navigation actions |
+| `Forecast` | loading, retry, refresh that keeps existing data, temperature formatting (no "-0°", °F for `en_US`) |
+| app | coordinator and router, connectivity banner, UI tests for launch and validation |
 
-Żaden test nie korzysta z prawdziwej sieci.
+No test uses the real network.
 
-**W Xcode:**
-- testy aplikacji: schemat `WeatherApp`, ⌘U;
-- testy pakietu: otwórz `Packages/WeatherAppKit/Package.swift` i uruchom ⌘U na schemacie `WeatherAppKit-Package`.
+**In Xcode:**
+- app tests: the `WeatherApp` scheme, ⌘U;
+- package tests: open `Packages/WeatherAppKit/Package.swift` and run ⌘U on the `WeatherAppKit-Package` scheme.
 
-**Z terminala** (nazwę symulatora dopasuj do dostępnych w `xcrun simctl list devices`):
+**From the terminal** (adjust the simulator name to one listed by `xcrun simctl list devices`):
 
 ```bash
-# testy pakietu
+# package tests
 cd Packages/WeatherAppKit
 xcodebuild test -scheme WeatherAppKit-Package -destination 'platform=iOS Simulator,name=iPhone 16'
 
-# testy aplikacji
+# app tests
 cd ../..
 xcodebuild test -project WeatherApp.xcodeproj -scheme WeatherApp -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-## Znane ograniczenia
+## Known limitations
 
-- Brak cache'u prognozy: bez sieci da się przeglądać historię, ale prognoza się nie wczyta.
-- Dodanie miasta do historii to odczyt, zmiana i zapis w osobnych krokach, więc dwa równoczesne zapisy mogłyby się nadpisać. W praktyce zapis następuje tylko po wybraniu miasta.
-- Po powrocie połączenia ekran z błędem trzeba ponowić ręcznie.
-- Schemat `WeatherApp` nie uruchamia testów pakietu. Trzeba je odpalić osobno, jak opisano wyżej.
+- No forecast cache: offline you can browse the history, but the forecast won't load.
+- Adding a city to the history reads, modifies and writes in separate steps, so two simultaneous writes could overwrite each other. In practice a write happens only when a city is selected.
+- After the connection comes back, an error screen has to be retried manually.
+- The `WeatherApp` scheme doesn't run the package tests; run them separately as described above.
 
-## Pomysły na rozwój
+## Ideas for further development
 
-- Cache ostatniej prognozy (np. strategia „najpierw sieć, w razie błędu cache”) i znacznik nieaktualnych danych.
-- Automatyczne ponowienie zapytania po odzyskaniu połączenia.
-- Ulubione miasta i prognoza dla bieżącej lokalizacji (Core Location).
-- Test plan łączący testy pakietu i aplikacji oraz CI (GitHub Actions) z buildem i testami.
-- Testy snapshotowe widoków w trybie jasnym i ciemnym oraz dla dużych rozmiarów tekstu.
-- Widżet z prognozą (WidgetKit) korzystający z tych samych modułów `WeatherDomain` i `WeatherData`.
+- Cache the latest forecast (e.g. a "network first, cache on failure" strategy) and mark stale data.
+- Retry requests automatically when the connection comes back.
+- Favorite cities and a forecast for the current location (Core Location).
+- A test plan combining package and app tests, and CI (GitHub Actions) with build and tests.
+- Snapshot tests of views in light and dark mode and at large text sizes.
+- A forecast widget (WidgetKit) built on the same `WeatherDomain` and `WeatherData` modules.
