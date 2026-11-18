@@ -23,6 +23,9 @@ stanów aplikacji.
 2. Wybierz schemat `WeatherApp` i dowolny symulator lub urządzenie z iOS 17+.
 3. Uruchom (⌘R).
 
+Na symulatorze podpisywanie nie jest potrzebne. Do uruchomienia na urządzeniu wybierz własny zespół
+w zakładce *Signing & Capabilities* targetu `WeatherApp`.
+
 Projekt nie ma zewnętrznych zależności ani kluczy API. Dane pochodzą z [Open-Meteo](https://open-meteo.com),
 które udostępnia wyszukiwanie miejscowości i prognozę bez rejestracji.
 
